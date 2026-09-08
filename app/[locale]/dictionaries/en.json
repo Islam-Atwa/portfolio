@@ -1,0 +1,101 @@
+{
+  "nav": {
+    "logo": "Islam",
+    "services": "Services",
+    "projects": "Projects",
+    "process": "How I Work",
+    "faq": "FAQ",
+    "contact": "Contact Me",
+    "switchLang": "العربية",
+    "themeLight": "Light Mode",
+    "themeDark": "Dark Mode"
+  },
+  "hero": {
+    "badge": "Digital Products & AI Agents Developer",
+    "title": "Transforming ideas into exceptional digital products and intelligent systems",
+    "description": "Designing and developing modern websites, cloud applications, and automated AI solutions that drive your business into the future.",
+    "ctaContact": "Get in Touch",
+    "ctaProjects": "View My Projects"
+  },
+  "socialProof": {
+    "perfTitle": "100% Performance",
+    "perfDesc": "Blazing fast speed and seamless experience meeting top industry standards",
+    "supportTitle": "Continuous Support",
+    "supportDesc": "Dedicated maintenance and monitoring to keep your platform stable and up-to-date",
+    "systemsTitle": "Smart Systems",
+    "systemsDesc": "Process automation and custom AI agents that save time and increase efficiency"
+  },
+  "painPoints": {
+    "badge": "Why Partner With Me?",
+    "title": "Facing any of these business challenges?",
+    "description": "Tailored tech solutions designed to tackle the real hurdles holding back your growth",
+    "item1Title": "Your business lacks a strong digital presence",
+    "item1Desc": "You lose valuable clients because prospects cannot easily discover your brand with a modern, credible identity.",
+    "item2Title": "You have a great idea needing precision execution",
+    "item2Desc": "You have a clear vision for a digital product but need an experienced partner to turn it into a scalable reality.",
+    "item3Title": "Manual, tedious workflows drain your team's energy",
+    "item3Desc": "You spend countless hours on repetitive tasks that can be automated with smart digital systems to skyrocket efficiency."
+  },
+  "services": {
+    "badge": "What I Offer",
+    "title": "Comprehensive tech services tailored to your ambition",
+    "description": "Fusing premium aesthetics with modern architecture to craft memorable digital journeys",
+    "webTitle": "Building Websites",
+    "webDesc": "Ultra-fast, responsive websites with refined aesthetics and high SEO performance to elevate your brand presence.",
+    "systemsTitle": "Building Digital Systems",
+    "systemsDesc": "Custom admin dashboards, scalable databases, and bespoke cloud workflows engineered to organize and scale operations.",
+    "aiTitle": "Building AI Agents",
+    "aiDesc": "Custom-tailored autonomous AI agents to automate customer interactions, data workflows, and internal productivity."
+  },
+  "projects": {
+    "badge": "Featured Work",
+    "title": "Projects that delivered real-world impact",
+    "description": "A curated collection of digital solutions delivered with world-class quality and craftsmanship",
+    "viewDetails": "View Project Details",
+    "viewLive": "View Live Project",
+    "featured": "Featured",
+    "empty": "No projects added yet."
+  },
+  "howIWork": {
+    "badge": "Methodology",
+    "title": "From concept to market-ready product",
+    "description": "A transparent, structured process engineered for high impact and swift delivery",
+    "step1Num": "01",
+    "step1Title": "UNDERSTAND",
+    "step1Desc": "We start by understanding the problem, goals, and user requirements thoroughly.",
+    "step2Num": "02",
+    "step2Title": "EXPLORE",
+    "step2Desc": "We explore possible architectural solutions and choose the optimal direction for success.",
+    "step3Num": "03",
+    "step3Title": "DEFINE",
+    "step3Desc": "We turn the strategic direction into a clear, focused plan with high-fidelity prototypes.",
+    "step4Num": "04",
+    "step4Title": "BUILD",
+    "step4Desc": "We bring the solution to life with clean code, rigorous testing, and seamless deployment.",
+  },
+  "cta": {
+    "title": "Ready to bring your vision to life?",
+    "description": "Let's build a standout digital solution that elevates your brand and achieves your goals.",
+    "button": "Start Conversation on WhatsApp"
+  },
+  "faq": {
+    "badge": "Got Questions?",
+    "title": "Frequently Asked Questions",
+    "description": "Clear answers to help you make informed decisions before starting",
+    "q1": "How long does a typical project take?",
+    "a1": "Timelines depend on scope and complexity. Marketing websites typically take 1-2 weeks, while custom digital systems or AI agent solutions take 3-6 weeks with continuous progress updates.",
+    "q2": "What technology stack do you work with?",
+    "a2": "We use modern standards including Next.js (React), TypeScript, Tailwind CSS, and reliable cloud infrastructures like Firebase to guarantee high security, speed, and effortless scaling.",
+    "q3": "Can I update website content myself after delivery?",
+    "a3": "Yes, absolutely! The platform includes an intuitive CMS admin panel where you can add, edit, or remove projects and content without touching a line of code.",
+    "q4": "Do you provide post-launch support and warranty?",
+    "a4": "Yes, all projects include complimentary post-launch support and warranty, with flexible ongoing maintenance plans available as your business grows."
+  },
+  "footer": {
+    "rights": "All rights reserved",
+    "builtWith": "Crafted with precision, performance, and attention to detail"
+  },
+  "whatsapp": {
+    "tooltip": "Chat directly on WhatsApp"
+  }
+}
