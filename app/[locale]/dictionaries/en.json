@@ -11,23 +11,26 @@
     "themeDark": "Dark Mode"
   },
   "hero": {
-    "badge": "Digital Products & AI Agents Developer",
-    "title": "Transforming ideas into exceptional digital products and intelligent systems",
-    "description": "Designing and developing modern websites, cloud applications, and automated AI solutions that drive your business into the future.",
-    "ctaContact": "Get in Touch",
-    "ctaProjects": "View My Projects"
+    "badge": "WEB DEVELOPER & DIGITAL ARCHITECT",
+    "title": "Building Digital Products That Drive Results.",
+    "description": "I design and develop modern, high-performance websites and web applications that help businesses scale, convert, and command attention.",
+    "ctaContact": "Get In Touch",
+    "ctaProjects": "View My Work",
+    "scrollDown": "SCROLL DOWN",
+    "statusTitle": "Available for new projects",
+    "statusSubtitle": "Let's build something amazing"
   },
   "socialProof": {
-    "perfTitle": "100% Performance",
-    "perfDesc": "Blazing fast speed and seamless experience meeting top industry standards",
-    "supportTitle": "Continuous Support",
-    "supportDesc": "Dedicated maintenance and monitoring to keep your platform stable and up-to-date",
-    "systemsTitle": "Smart Systems",
-    "systemsDesc": "Process automation and custom AI agents that save time and increase efficiency"
+    "stat1Value": "100%",
+    "stat1Desc": "Top-tier website performance",
+    "stat2Value": "24/7",
+    "stat2Desc": "Continuous technical support",
+    "stat3Value": "✦",
+    "stat3Desc": "Solutions tailored to your business"
   },
   "painPoints": {
     "badge": "Why Partner With Me?",
-    "title": "Facing any of these business challenges?",
+    "title": "Facing challenges\nin your business\nlike these?\nTalk to me",
     "description": "Tailored tech solutions designed to tackle the real hurdles holding back your growth",
     "item1Title": "Your business lacks a strong digital presence",
     "item1Desc": "You lose valuable clients because prospects cannot easily discover your brand with a modern, credible identity.",
