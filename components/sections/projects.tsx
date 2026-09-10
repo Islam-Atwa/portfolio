@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, TrendingUp } from 'lucide-react';
 import type { Project } from '@/lib/types';
@@ -117,12 +118,13 @@ export function ProjectsSection({ projects, locale, dict }: ProjectsSectionProps
                     ) : (
                       <span />
                     )}
-                    <a
-                      href="#contact"
-                      className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
+                    <Link
+                      href={`/${locale}/projects/${project.id}`}
+                      className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground hover:text-foreground hover:underline transition-colors"
                     >
                       <span>{dict.projects.viewDetails}</span>
-                    </a>
+                      <ArrowUpRight className="size-3.5 rtl:rotate-270" />
+                    </Link>
                   </div>
                 </div>
               </motion.div>

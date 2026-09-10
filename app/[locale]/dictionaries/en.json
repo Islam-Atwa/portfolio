@@ -57,7 +57,18 @@
     "viewDetails": "View Project Details",
     "viewLive": "View Live Project",
     "featured": "Featured",
-    "empty": "No projects added yet."
+    "empty": "No projects added yet.",
+    "backToProjects": "Back to all projects",
+    "caseStudyBadge": "Detailed Case Study",
+    "problemTitle": "The Challenge & Problem",
+    "problemSubtitle": "What bottlenecks was the business struggling with before this solution?",
+    "solutionTitle": "The Engineered Solution",
+    "solutionSubtitle": "How we architected, built, and deployed the right technical capabilities.",
+    "resultTitle": "Real-World Results & Impact",
+    "resultSubtitle": "Measurable business outcomes and performance gains achieved post-launch.",
+    "similarProjectCtaTitle": "Ready to build a similar solution for your business?",
+    "similarProjectCtaDesc": "Let's discuss your requirements and turn your vision into a scalable digital system.",
+    "discussProject": "Discuss a similar project"
   },
   "howIWork": {
     "badge": "Methodology",
