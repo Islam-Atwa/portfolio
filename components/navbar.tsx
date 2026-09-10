@@ -29,10 +29,20 @@ interface NavbarProps {
 export function Navbar({ locale, dict }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
-  const otherLocale: Locale = locale === 'ar' ? 'en' : 'ar';
+  const isAr = locale === 'ar';
+  const otherLocale: Locale = isAr ? 'en' : 'ar';
 
   // Compute equivalent path for the opposite locale
   const switchLocalePath = pathname.replace(`/${locale}`, `/${otherLocale}`) || `/${otherLocale}`;
+
+  // Direct WhatsApp link for navbar contact CTA
+  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '201005683716';
+  const whatsappMessage = encodeURIComponent(
+    isAr
+      ? 'مرحباً إسلام، أود التواصل معك بخصوص مشروع جديد.'
+      : "Hi Islam, I'd like to get in touch about a new project."
+  );
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 
   const navLinks = [
     { href: '#services', label: dict.nav.services },
@@ -84,7 +94,12 @@ export function Navbar({ locale, dict }: NavbarProps) {
           />
 
           {/* Desktop Contact CTA */}
-          <a href="#contact" className="hidden sm:inline-flex">
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-flex"
+          >
             <Button size="sm" className="rounded-full px-4 text-xs font-medium gap-1">
               <span>{dict.nav.contact}</span>
               <ArrowUpRight className="size-3.5 rtl:rotate-270" />
@@ -127,7 +142,9 @@ export function Navbar({ locale, dict }: NavbarProps) {
               ))}
               <div className="pt-2">
                 <a
-                  href="#contact"
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setMobileMenuOpen(false)}
                   className="w-full"
                 >

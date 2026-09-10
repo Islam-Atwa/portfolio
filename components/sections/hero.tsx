@@ -24,6 +24,15 @@ interface HeroProps {
 export function Hero({ locale, dict }: HeroProps) {
   const isAr = locale === 'ar';
 
+  // Direct WhatsApp link for hero contact CTA
+  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '201005683716';
+  const whatsappMessage = encodeURIComponent(
+    isAr
+      ? 'مرحباً إسلام، أود التواصل معك بخصوص مشروع جديد.'
+      : "Hi Islam, I'd like to get in touch about a new project."
+  );
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+
   return (
     <section className="relative overflow-hidden min-h-[calc(100vh-4rem)] flex flex-col justify-center py-16 sm:py-20 lg:py-24 border-b border-border/30 bg-background">
       {/* 1. Subtle Engineering Grid Background (matches reference screenshot) */}
@@ -109,7 +118,12 @@ export function Hero({ locale, dict }: HeroProps) {
               </a>
 
               {/* Secondary Button */}
-              <a href="#contact" className="group">
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group"
+              >
                 <button
                   type="button"
                   className="rounded-full border border-border/80 bg-background/50 hover:bg-accent/50 text-foreground font-medium px-7 py-3.5 text-sm sm:text-base backdrop-blur-md transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] inline-flex items-center gap-2"
@@ -190,7 +204,9 @@ export function Hero({ locale, dict }: HeroProps) {
                     </div>
 
                     <a
-                      href="#contact"
+                      href={whatsappUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       aria-label={dict.hero.ctaContact}
                       className="size-9 rounded-xl bg-primary/10 hover:bg-primary text-primary hover:text-primary-foreground flex items-center justify-center shrink-0 transition-colors shadow-sm"
                     >

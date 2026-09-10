@@ -33,9 +33,9 @@ export async function generateMetadata({
   return {
     title: {
       default: isAr
-        ? 'إسلام — مطور منتجات رقمية ووكلاء ذكاء اصطناعي'
-        : 'Islam — Digital Products & AI Agents Developer',
-      template: isAr ? '%s | إسلام' : '%s | Islam',
+        ? 'Islam Atwa'
+        : 'Islam Atwa',
+      template: isAr ? '%s | Islam' : '%s | Islam',
     },
     description: isAr
       ? 'تصميم وتطوير مواقع احترافية، أنظمة سحابية متكاملة، وحلول ذكاء اصطناعي مؤتمتة تدفع أعمالك إلى المستقبل.'

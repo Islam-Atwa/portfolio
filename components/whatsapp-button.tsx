@@ -14,7 +14,7 @@ export function WhatsAppButton({ locale, tooltipText }: WhatsAppButtonProps) {
   const [isHovered, setIsHovered] = useState(false);
   const isAr = locale === 'ar';
 
-  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '201000000000';
+  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '201005683716';
   const whatsappMessage = encodeURIComponent(
     isAr
       ? 'مرحباً إسلام، أود الاستفسار عن خدماتك وتطوير مشروع تقني.'

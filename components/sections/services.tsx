@@ -25,6 +25,9 @@ interface ServicesProps {
 export function Services({ locale, dict }: ServicesProps) {
   const isAr = locale === 'ar';
 
+  // WhatsApp number from env (same default as across the site)
+  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '201005683716';
+
   const services = [
     {
       id: 'web',
@@ -59,7 +62,15 @@ export function Services({ locale, dict }: ServicesProps) {
         ? ['وكلاء دعم فني ومبيعات آليين', 'أتمتة سير العمل وربط الأنظمة', 'معالجة لغة طبيعية ودعم اللهجات']
         : ['24/7 AI sales & support agents', 'Workflow automation & API webhooks', 'Natural language understanding'],
     },
-  ];
+  ].map((service) => ({
+    ...service,
+    // Build a WhatsApp URL with a pre-filled message mentioning the service name
+    whatsappUrl: `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+      isAr
+        ? `مرحباً إسلام، أود طلب خدمة: ${service.title}`
+        : `Hi Islam, I'd like to request a service: ${service.title}`
+    )}`,
+  }));
 
   return (
     <section id="services" className="py-16 sm:py-24 md:py-28 border-b border-border/30 bg-muted/15 relative">
@@ -130,10 +141,12 @@ export function Services({ locale, dict }: ServicesProps) {
                       </ul>
                     </div>
 
-                    {/* CTA Link */}
+                    {/* CTA Link — opens WhatsApp with the service name pre-filled */}
                     <div className="mt-6 sm:mt-8 pt-2">
                       <a
-                        href="#contact"
+                        href={service.whatsappUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-primary hover:text-primary/80 transition-all group-hover:translate-x-1 rtl:group-hover:-translate-x-1"
                       >
                         <span>{isAr ? 'اطلب هذه الخدمة الآن' : 'Request this service'}</span>

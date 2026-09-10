@@ -66,8 +66,9 @@ export function PainPoints({ locale, dict }: PainPointsProps) {
             <h2 className="text-2xl sm:text-4xl font-extrabold text-foreground leading-[1.8] sm:leading-[1.9]">
               {(() => {
                 const lines = dict.painPoints.title.split('\n');
-                const highlightWords = ['كلمني', 'Talk to me'];
+                // button link to whatsapp
 
+                const highlightWords = ['كلمني', 'Talk to me'];
                 return lines.map((line, lineIndex) => {
                   const matched = highlightWords.find((w) => line.includes(w));
                   if (matched) {

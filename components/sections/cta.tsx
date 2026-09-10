@@ -19,7 +19,7 @@ interface CTAProps {
 export function CTA({ locale, dict }: CTAProps) {
   const isAr = locale === 'ar';
   // Allow configuring WhatsApp number via environment variable or default
-  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '201000000000';
+  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '201005683716';
   const whatsappMessage = encodeURIComponent(
     isAr
       ? 'مرحباً إسلام، أود مناقشة مشروع جديد معك.'
