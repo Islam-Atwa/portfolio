@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+import { notFound, redirect, RedirectType } from 'next/navigation';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import { type Locale, isValidLocale } from '@/lib/i18n';
 import { getDictionary } from '../../dictionaries';
-import { getProject, getProjects } from '@/lib/projects';
+import { getProject, getProjects, getProjectBySlug } from '@/lib/projects';
 import { Navbar } from '@/components/navbar';
 import { Footer } from '@/components/sections/footer';
 import { WhatsAppButton } from '@/components/whatsapp-button';
@@ -25,7 +25,7 @@ import { Button } from '@/components/ui/button';
 interface ProjectPageProps {
   params: Promise<{
     locale: string;
-    projectId: string;
+    slug: string;
   }>;
 }
 
@@ -33,12 +33,12 @@ export async function generateStaticParams() {
   const projects = await getProjects();
   const locales: Locale[] = ['ar', 'en'];
 
-  const params: { locale: string; projectId: string }[] = [];
+  const params: { locale: string; slug: string }[] = [];
   for (const locale of locales) {
     for (const project of projects) {
       params.push({
         locale,
-        projectId: project.id,
+        slug: project.slug,
       });
     }
   }
@@ -47,13 +47,16 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
-  const { locale, projectId } = await params;
+  const { locale, slug } = await params;
 
   if (!isValidLocale(locale)) {
     return {};
   }
 
-  const project = await getProject(projectId);
+  let project = await getProjectBySlug(slug);
+  if (!project) {
+    project = await getProject(slug);
+  }
   if (!project) {
     return {};
   }
@@ -69,30 +72,35 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
       title,
       description,
       images: project.coverImage ? [{ url: project.coverImage }] : [],
-      url: `/${locale}/projects/${projectId}`,
+      url: `/${locale}/projects/${project.slug}`,
       siteName: isAr ? 'إسلام عطوة — دراسة حالة' : 'Islam Atwa — Case Study',
       locale: isAr ? 'ar_AR' : 'en_US',
       type: 'article',
     },
     alternates: {
-      canonical: `/${locale}/projects/${projectId}`,
+      canonical: `/${locale}/projects/${project.slug}`,
       languages: {
-        ar: `/ar/projects/${projectId}`,
-        en: `/en/projects/${projectId}`,
+        ar: `/ar/projects/${project.slug}`,
+        en: `/en/projects/${project.slug}`,
       },
     },
   };
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
-  const { locale, projectId } = await params;
+  const { locale, slug } = await params;
 
   if (!isValidLocale(locale)) {
     notFound();
   }
 
-  const project = await getProject(projectId);
+  let project = await getProjectBySlug(slug);
   if (!project) {
+    // Backward-compatibility: if accessed via old Firestore doc ID, permanent 301 redirect to slug
+    const legacyProject = await getProject(slug);
+    if (legacyProject && legacyProject.slug && legacyProject.slug !== slug) {
+      redirect(`/${locale}/projects/${legacyProject.slug}`, RedirectType.replace);
+    }
     notFound();
   }
 

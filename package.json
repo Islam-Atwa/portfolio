@@ -13,6 +13,7 @@
     "@formatjs/intl-localematcher": "^0.8.13",
     "class-variance-authority": "^0.7.1",
     "cn": "^0.2.6",
+    "embla-carousel-react": "^8.6.0",
     "firebase": "^12.18.0",
     "framer-motion": "^13.2.0",
     "i18next": "^26.4.2",

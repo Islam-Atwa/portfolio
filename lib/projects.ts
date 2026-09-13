@@ -14,6 +14,7 @@ import type { Project } from './types';
 export const fallbackProjects: Project[] = [
   {
     id: 'ai-customer-agent',
+    slug: 'ai-customer-agent',
     title_ar: 'نظام وكلاء الذكاء الاصطناعي لخدمة العملاء وأتمتة العمليات',
     title_en: 'AI Customer Agents & Workflow Automation System',
     shortDescription_ar:
@@ -41,6 +42,7 @@ export const fallbackProjects: Project[] = [
   },
   {
     id: 'cloud-logistics-system',
+    slug: 'cloud-logistics-system',
     title_ar: 'منصة إدارة العمليات اللوجستية وتتبع الشحنات الذكية',
     title_en: 'Smart Logistics & Fleet Tracking Operations Platform',
     shortDescription_ar:
@@ -68,6 +70,7 @@ export const fallbackProjects: Project[] = [
   },
   {
     id: 'luxury-brand-experience',
+    slug: 'luxury-brand-experience',
     title_ar: 'متجر إلكتروني فاخر بهوية عصرية وسرعة استثنائية',
     title_en: 'Luxury Brand E-Commerce & Interactive Experience',
     shortDescription_ar:
@@ -116,6 +119,7 @@ export async function getProjects(): Promise<Project[]> {
       const data = docSnap.data();
       return {
         id: docSnap.id,
+        slug: data.slug || docSnap.id,
         title_ar: data.title_ar || '',
         title_en: data.title_en || '',
         shortDescription_ar: data.shortDescription_ar || '',
@@ -163,6 +167,7 @@ export async function getProject(id: string): Promise<Project | null> {
       const data = docSnap.data();
       return {
         id: docSnap.id,
+        slug: data.slug || docSnap.id,
         title_ar: data.title_ar || '',
         title_en: data.title_en || '',
         shortDescription_ar: data.shortDescription_ar || '',
@@ -185,5 +190,49 @@ export async function getProject(id: string): Promise<Project | null> {
   } catch (error) {
     console.warn(`Could not fetch project ${id} from Firestore, using fallback:`, error);
     return fallbackProjects.find((p) => p.id === id) || null;
+  }
+}
+
+/**
+ * Fetch a single project by slug
+ */
+export async function getProjectBySlug(slug: string): Promise<Project | null> {
+  if (!isFirebaseConfigured || !db) {
+    return fallbackProjects.find((p) => p.slug === slug || p.id === slug) || null;
+  }
+
+  try {
+    const projectsCol = collection(db, 'projects');
+    const q = query(projectsCol, where('slug', '==', slug));
+    const snapshot = await getDocs(q);
+
+    if (!snapshot.empty) {
+      const docSnap = snapshot.docs[0];
+      const data = docSnap.data();
+      return {
+        id: docSnap.id,
+        slug: data.slug || docSnap.id,
+        title_ar: data.title_ar || '',
+        title_en: data.title_en || '',
+        shortDescription_ar: data.shortDescription_ar || '',
+        shortDescription_en: data.shortDescription_en || '',
+        problem_ar: data.problem_ar || '',
+        problem_en: data.problem_en || '',
+        solution_ar: data.solution_ar || '',
+        solution_en: data.solution_en || '',
+        result_ar: data.result_ar || '',
+        result_en: data.result_en || '',
+        coverImage: data.coverImage || '',
+        liveUrl: data.liveUrl || '',
+        order: typeof data.order === 'number' ? data.order : 0,
+        featured: Boolean(data.featured),
+        createdAt: data.createdAt?.toDate ? data.createdAt.toDate().toISOString() : data.createdAt,
+      } as Project;
+    }
+
+    return fallbackProjects.find((p) => p.slug === slug || p.id === slug) || null;
+  } catch (error) {
+    console.warn(`Could not fetch project with slug ${slug} from Firestore, using fallback:`, error);
+    return fallbackProjects.find((p) => p.slug === slug || p.id === slug) || null;
   }
 }

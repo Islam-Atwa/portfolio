@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { MessageCircle, Heart } from 'lucide-react';
+import { MessageCircle, Heart, Lock } from 'lucide-react';
 import type { Locale } from '@/lib/i18n';
 
 function InstagramIcon({ className }: { className?: string }) {
@@ -182,13 +182,26 @@ export function Footer({ locale, dict }: FooterProps) {
           </div>
         </div>
 
-        {/* Copyright and Quality Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
+        {/* Copyright, CMS Login Button, and Quality Bar */}
+        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
           <p>© {currentYear} {dict.nav.logo}. {dict.footer.rights}.</p>
-          <p className="flex items-center gap-1.5 text-muted-foreground">
-            <span>{dict.footer.builtWith}</span>
-            <Heart className="size-3.5 text-red-500 fill-red-500 transition-transform hover:scale-125 inline-block" />
-          </p>
+
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <Link
+              href="/admin"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-border/70 bg-card/60 hover:bg-primary/10 hover:border-primary/50 hover:text-primary transition-all duration-200 text-xs font-medium text-muted-foreground shadow-2xs group"
+            >
+              <Lock className="size-3 text-muted-foreground group-hover:text-primary transition-colors" />
+              <span>{isAr ? 'تسجيل الدخول للنظام (CMS)' : 'CMS Login'}</span>
+            </Link>
+
+            <span className="hidden sm:inline text-border">|</span>
+
+            <p className="flex items-center gap-1.5 text-muted-foreground">
+              <span>{dict.footer.builtWith}</span>
+              <Heart className="size-3.5 text-red-500 fill-red-500 transition-transform hover:scale-125 inline-block" />
+            </p>
+          </div>
         </div>
       </div>
     </footer>

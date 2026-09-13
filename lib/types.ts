@@ -1,5 +1,6 @@
 export interface Project {
   id: string;
+  slug: string;
   title_ar: string;
   title_en: string;
   shortDescription_ar: string;
@@ -17,4 +18,4 @@ export interface Project {
   createdAt?: string | number | Date | null;
 }
 
-export type ProjectFormData = Omit<Project, 'id' | 'createdAt'>;
+export type ProjectFormData = Omit<Project, 'id' | 'createdAt' | 'slug'>;

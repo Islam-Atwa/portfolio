@@ -68,7 +68,7 @@ export function ProjectCard({ project, locale, dict }: ProjectCardProps) {
 
       {/* Action Buttons */}
       <div className="p-6 sm:p-7 pt-0 flex flex-wrap items-center gap-3">
-        <Link href={`/${locale}/projects/${project.id}`} className="flex-1 min-w-[130px]">
+        <Link href={`/${locale}/projects/${project.slug}`} className="flex-1 min-w-[130px]">
           <Button
             variant="default"
             size="sm"
