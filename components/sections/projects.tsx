@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight, TrendingUp } from 'lucide-react';
 import type { Project } from '@/lib/types';
 import type { Locale } from '@/lib/i18n';
+import { DEFAULT_PROJECT_BLUR_DATA_URL } from '@/lib/image-utils';
 import {
   Carousel,
   CarouselContent,
@@ -61,6 +62,9 @@ export function ProjectsSection({ projects, locale, dict }: ProjectsSectionProps
             src={project.coverImage}
             alt={getTitle(project)}
             fill
+            quality={80}
+            placeholder="blur"
+            blurDataURL={project.blurDataURL || DEFAULT_PROJECT_BLUR_DATA_URL}
             className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />

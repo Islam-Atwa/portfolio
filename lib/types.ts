@@ -12,10 +12,11 @@ export interface Project {
   result_ar: string;
   result_en: string;
   coverImage: string;
+  blurDataURL?: string;
   liveUrl: string;
   order: number;
   featured: boolean;
   createdAt?: string | number | Date | null;
 }
 
-export type ProjectFormData = Omit<Project, 'id' | 'createdAt' | 'slug'>;
+export type ProjectFormData = Omit<Project, 'id' | 'createdAt' | 'slug' | 'blurDataURL'>;

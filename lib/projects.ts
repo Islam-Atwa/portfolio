@@ -9,6 +9,31 @@ import {
 } from 'firebase/firestore';
 import { db, isFirebaseConfigured } from './firebase';
 import type { Project } from './types';
+import { DEFAULT_PROJECT_BLUR_DATA_URL } from './image-utils';
+
+// Helper to convert Firestore document data to a consistent Project object
+function mapDocToProject(id: string, data: Record<string, any>): Project {
+  return {
+    id,
+    slug: data.slug || id,
+    title_ar: data.title_ar || '',
+    title_en: data.title_en || '',
+    shortDescription_ar: data.shortDescription_ar || '',
+    shortDescription_en: data.shortDescription_en || '',
+    problem_ar: data.problem_ar || '',
+    problem_en: data.problem_en || '',
+    solution_ar: data.solution_ar || '',
+    solution_en: data.solution_en || '',
+    result_ar: data.result_ar || '',
+    result_en: data.result_en || '',
+    coverImage: data.coverImage || '',
+    blurDataURL: data.blurDataURL || (data.coverImage ? DEFAULT_PROJECT_BLUR_DATA_URL : undefined),
+    liveUrl: data.liveUrl || '',
+    order: typeof data.order === 'number' ? data.order : 0,
+    featured: Boolean(data.featured),
+    createdAt: data.createdAt?.toDate ? data.createdAt.toDate().toISOString() : data.createdAt,
+  };
+}
 
 // Fallback showcase projects when Firestore is not yet populated or configured
 export const fallbackProjects: Project[] = [
@@ -35,6 +60,7 @@ export const fallbackProjects: Project[] = [
       'Reduced average response time to under 5 seconds, boosted lead conversion by 42%, and saved the team over 25 hours per week in manual administration.',
     coverImage:
       'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80',
+    blurDataURL: DEFAULT_PROJECT_BLUR_DATA_URL,
     liveUrl: 'https://example.com/demo/ai-agents',
     order: 1,
     featured: true,
@@ -63,6 +89,7 @@ export const fallbackProjects: Project[] = [
       'Enhanced delivery efficiency by 35%, completely eliminated manual data entry errors, and raised customer satisfaction to 95%.',
     coverImage:
       'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
+    blurDataURL: DEFAULT_PROJECT_BLUR_DATA_URL,
     liveUrl: 'https://example.com/demo/logistics',
     order: 2,
     featured: true,
@@ -91,6 +118,7 @@ export const fallbackProjects: Project[] = [
       'Achieved a 100 Lighthouse performance score, doubled average time on site, and increased sales by 60% in the first two months.',
     coverImage:
       'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80',
+    blurDataURL: DEFAULT_PROJECT_BLUR_DATA_URL,
     liveUrl: 'https://example.com/demo/luxury-store',
     order: 3,
     featured: true,
@@ -115,28 +143,7 @@ export async function getProjects(): Promise<Project[]> {
       return fallbackProjects;
     }
 
-    return snapshot.docs.map((docSnap) => {
-      const data = docSnap.data();
-      return {
-        id: docSnap.id,
-        slug: data.slug || docSnap.id,
-        title_ar: data.title_ar || '',
-        title_en: data.title_en || '',
-        shortDescription_ar: data.shortDescription_ar || '',
-        shortDescription_en: data.shortDescription_en || '',
-        problem_ar: data.problem_ar || '',
-        problem_en: data.problem_en || '',
-        solution_ar: data.solution_ar || '',
-        solution_en: data.solution_en || '',
-        result_ar: data.result_ar || '',
-        result_en: data.result_en || '',
-        coverImage: data.coverImage || '',
-        liveUrl: data.liveUrl || '',
-        order: typeof data.order === 'number' ? data.order : 0,
-        featured: Boolean(data.featured),
-        createdAt: data.createdAt?.toDate ? data.createdAt.toDate().toISOString() : data.createdAt,
-      } as Project;
-    });
+    return snapshot.docs.map((docSnap) => mapDocToProject(docSnap.id, docSnap.data()));
   } catch (error) {
     console.warn('Could not fetch projects from Firestore, using fallback:', error);
     return fallbackProjects;
@@ -164,26 +171,7 @@ export async function getProject(id: string): Promise<Project | null> {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      const data = docSnap.data();
-      return {
-        id: docSnap.id,
-        slug: data.slug || docSnap.id,
-        title_ar: data.title_ar || '',
-        title_en: data.title_en || '',
-        shortDescription_ar: data.shortDescription_ar || '',
-        shortDescription_en: data.shortDescription_en || '',
-        problem_ar: data.problem_ar || '',
-        problem_en: data.problem_en || '',
-        solution_ar: data.solution_ar || '',
-        solution_en: data.solution_en || '',
-        result_ar: data.result_ar || '',
-        result_en: data.result_en || '',
-        coverImage: data.coverImage || '',
-        liveUrl: data.liveUrl || '',
-        order: typeof data.order === 'number' ? data.order : 0,
-        featured: Boolean(data.featured),
-        createdAt: data.createdAt?.toDate ? data.createdAt.toDate().toISOString() : data.createdAt,
-      } as Project;
+      return mapDocToProject(docSnap.id, docSnap.data());
     }
 
     return fallbackProjects.find((p) => p.id === id) || null;
@@ -208,26 +196,7 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
 
     if (!snapshot.empty) {
       const docSnap = snapshot.docs[0];
-      const data = docSnap.data();
-      return {
-        id: docSnap.id,
-        slug: data.slug || docSnap.id,
-        title_ar: data.title_ar || '',
-        title_en: data.title_en || '',
-        shortDescription_ar: data.shortDescription_ar || '',
-        shortDescription_en: data.shortDescription_en || '',
-        problem_ar: data.problem_ar || '',
-        problem_en: data.problem_en || '',
-        solution_ar: data.solution_ar || '',
-        solution_en: data.solution_en || '',
-        result_ar: data.result_ar || '',
-        result_en: data.result_en || '',
-        coverImage: data.coverImage || '',
-        liveUrl: data.liveUrl || '',
-        order: typeof data.order === 'number' ? data.order : 0,
-        featured: Boolean(data.featured),
-        createdAt: data.createdAt?.toDate ? data.createdAt.toDate().toISOString() : data.createdAt,
-      } as Project;
+      return mapDocToProject(docSnap.id, docSnap.data());
     }
 
     return fallbackProjects.find((p) => p.slug === slug || p.id === slug) || null;

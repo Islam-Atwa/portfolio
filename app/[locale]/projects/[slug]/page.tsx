@@ -17,6 +17,7 @@ import {
 import { type Locale, isValidLocale } from '@/lib/i18n';
 import { getDictionary } from '../../dictionaries';
 import { getProject, getProjects, getProjectBySlug } from '@/lib/projects';
+import { DEFAULT_PROJECT_BLUR_DATA_URL } from '@/lib/image-utils';
 import { Navbar } from '@/components/navbar';
 import { Footer } from '@/components/sections/footer';
 import { WhatsAppButton } from '@/components/whatsapp-button';
@@ -94,7 +95,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     notFound();
   }
 
-  let project = await getProjectBySlug(slug);
+  const project = await getProjectBySlug(slug);
   if (!project) {
     // Backward-compatibility: if accessed via old Firestore doc ID, permanent 301 redirect to slug
     const legacyProject = await getProject(slug);
@@ -164,6 +165,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                       alt={title}
                       fill
                       priority
+                      quality={80}
+                      placeholder="blur"
+                      blurDataURL={project.blurDataURL || DEFAULT_PROJECT_BLUR_DATA_URL}
                       sizes="(max-width: 1024px) 100vw, 50vw"
                       className="object-cover object-center"
                     />

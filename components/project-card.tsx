@@ -7,6 +7,7 @@ import { ArrowUpRight, Sparkles, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import type { Project } from '@/lib/types';
 import type { Locale } from '@/lib/i18n';
+import { DEFAULT_PROJECT_BLUR_DATA_URL } from '@/lib/image-utils';
 
 interface ProjectCardProps {
   project: Project;
@@ -40,6 +41,9 @@ export function ProjectCard({ project, locale, dict }: ProjectCardProps) {
             src={project.coverImage}
             alt={title}
             fill
+            quality={80}
+            placeholder="blur"
+            blurDataURL={project.blurDataURL || DEFAULT_PROJECT_BLUR_DATA_URL}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover transition-transform duration-500 group-hover:scale-105"
             priority={project.featured}
