@@ -23,6 +23,10 @@ import { Footer } from '@/components/sections/footer';
 import { WhatsAppButton } from '@/components/whatsapp-button';
 import { Button } from '@/components/ui/button';
 
+// Re-fetch Firestore data at most once every 60 seconds (ISR).
+// New slugs not in generateStaticParams are rendered on-demand (dynamicParams defaults to true).
+export const revalidate = 60;
+
 interface ProjectPageProps {
   params: Promise<{
     locale: string;
@@ -158,21 +162,22 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-center [direction:ltr]">
               {/* Left Column — Project Image */}
               <div className="lg:col-span-6 w-full [direction:inherit]">
-                <div className="relative aspect-[4/3] sm:aspect-[16/11] lg:aspect-[4/3] w-full rounded-2xl sm:rounded-3xl border border-border/70 dark:border-white/10 overflow-hidden bg-card shadow-xl dark:shadow-2xl">
+                <div className="relative w-full rounded-2xl sm:rounded-3xl border border-border/70 dark:border-white/10 overflow-hidden bg-card shadow-xl dark:shadow-2xl">
                   {project.coverImage ? (
                     <Image
                       src={project.coverImage}
                       alt={title}
-                      fill
+                      width={1200}
+                      height={675}
                       priority
                       quality={80}
                       placeholder="blur"
                       blurDataURL={project.blurDataURL || DEFAULT_PROJECT_BLUR_DATA_URL}
                       sizes="(max-width: 1024px) 100vw, 50vw"
-                      className="object-cover object-center"
+                      className="w-full h-auto max-h-[650px] object-cover block"
                     />
                   ) : (
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-muted/40 to-primary/5 flex items-center justify-center">
+                    <div className="aspect-video w-full bg-gradient-to-br from-primary/15 via-muted/40 to-primary/5 flex items-center justify-center">
                       <Layers className="size-16 text-primary/40" />
                     </div>
                   )}

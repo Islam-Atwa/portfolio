@@ -33,7 +33,8 @@ export function ProjectTable({ projects, onUpdate }: ProjectTableProps) {
     setIsDeleting(true);
     
     try {
-      await deleteProject(deleteConfirmId);
+      const projectToDelete = sortedProjects.find((p) => p.id === deleteConfirmId);
+      await deleteProject(deleteConfirmId, projectToDelete?.slug);
       onUpdate();
     } catch (error) {
       console.error('Failed to delete project:', error);

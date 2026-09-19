@@ -3,6 +3,9 @@ import type { Metadata } from 'next';
 import { type Locale, isValidLocale } from '@/lib/i18n';
 import { getDictionary } from './dictionaries';
 import { getProjects } from '@/lib/projects';
+
+// Re-fetch Firestore data at most once every 60 seconds (ISR)
+export const revalidate = 60;
 import { Navbar } from '@/components/navbar';
 import { Hero } from '@/components/sections/hero';
 import { SocialProof } from '@/components/sections/social-proof';

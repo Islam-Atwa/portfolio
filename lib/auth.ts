@@ -37,7 +37,21 @@ export async function signInWithGoogleAdmin() {
  */
 export async function signInAdmin(email: string, password: string) {
   if (!auth) throw new Error('Firebase auth is not configured');
-  return signInWithEmailAndPassword(auth, email, password);
+
+  if (email.trim().toLowerCase() !== ALLOWED_ADMIN_EMAIL.toLowerCase()) {
+    throw new Error('Unauthorized email. Access is strictly restricted to administrator.');
+  }
+
+  const userCredential = await signInWithEmailAndPassword(auth, email, password);
+  const user = userCredential.user;
+
+  // Strict email check post-login as well
+  if (user.email?.toLowerCase() !== ALLOWED_ADMIN_EMAIL.toLowerCase()) {
+    await signOut(auth);
+    throw new Error(`Unauthorized email (${user.email || 'unknown'}). Access is strictly restricted to administrator.`);
+  }
+
+  return userCredential;
 }
 
 /**
