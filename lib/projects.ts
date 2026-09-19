@@ -6,13 +6,14 @@ import {
   query,
   orderBy,
   where,
+  type DocumentData,
 } from 'firebase/firestore';
 import { db, isFirebaseConfigured } from './firebase';
 import type { Project } from './types';
 import { DEFAULT_PROJECT_BLUR_DATA_URL } from './image-utils';
 
 // Helper to convert Firestore document data to a consistent Project object
-function mapDocToProject(id: string, data: Record<string, any>): Project {
+export function mapDocToProject(id: string, data: DocumentData): Project {
   return {
     id,
     slug: data.slug || id,

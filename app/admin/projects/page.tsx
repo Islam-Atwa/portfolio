@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import type { Project } from '@/lib/types';
+import { mapDocToProject } from '@/lib/projects';
 import { AdminHeader } from '@/components/admin/admin-header';
 import { AuthGuard } from '@/components/admin/auth-guard';
 import { ProjectTable } from '@/components/admin/project-table';
@@ -24,28 +25,9 @@ export default function AdminProjectsPage() {
     const q = query(collection(db, 'projects'), orderBy('order', 'asc'));
     
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      const projectsData = snapshot.docs.map((docSnap) => {
-        const data = docSnap.data();
-        return {
-          id: docSnap.id,
-          slug: data.slug || docSnap.id,
-          title_ar: data.title_ar || '',
-          title_en: data.title_en || '',
-          shortDescription_ar: data.shortDescription_ar || '',
-          shortDescription_en: data.shortDescription_en || '',
-          problem_ar: data.problem_ar || '',
-          problem_en: data.problem_en || '',
-          solution_ar: data.solution_ar || '',
-          solution_en: data.solution_en || '',
-          result_ar: data.result_ar || '',
-          result_en: data.result_en || '',
-          coverImage: data.coverImage || '',
-          liveUrl: data.liveUrl || '',
-          order: typeof data.order === 'number' ? data.order : 0,
-          featured: Boolean(data.featured),
-          createdAt: data.createdAt?.toDate ? data.createdAt.toDate().toISOString() : data.createdAt,
-        } as Project;
-      });
+      const projectsData = snapshot.docs.map((docSnap) =>
+        mapDocToProject(docSnap.id, docSnap.data())
+      );
       
       setProjects(projectsData);
       setLoading(false);

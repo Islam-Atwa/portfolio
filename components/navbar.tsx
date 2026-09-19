@@ -8,6 +8,7 @@ import { Globe, Menu, X, ArrowUpRight } from 'lucide-react';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { Button } from '@/components/ui/button';
 import type { Locale } from '@/lib/i18n';
+import { getWhatsAppUrl } from '@/lib/whatsapp';
 
 interface NavbarProps {
   locale: Locale;
@@ -36,13 +37,11 @@ export function Navbar({ locale, dict }: NavbarProps) {
   const switchLocalePath = pathname.replace(`/${locale}`, `/${otherLocale}`) || `/${otherLocale}`;
 
   // Direct WhatsApp link for navbar contact CTA
-  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '201005683716';
-  const whatsappMessage = encodeURIComponent(
+  const whatsappUrl = getWhatsAppUrl(
     isAr
       ? 'مرحباً إسلام، أود التواصل معك بخصوص مشروع جديد.'
       : "Hi Islam, I'd like to get in touch about a new project."
   );
-  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 
   const navLinks = [
     { href: '#services', label: dict.nav.services },

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Laptop, Database, Bot, Check, ArrowUpRight } from 'lucide-react';
 import type { Locale } from '@/lib/i18n';
+import { getWhatsAppUrl } from '@/lib/whatsapp';
 
 interface ServicesProps {
   locale: Locale;
@@ -24,9 +25,6 @@ interface ServicesProps {
 
 export function Services({ locale, dict }: ServicesProps) {
   const isAr = locale === 'ar';
-
-  // WhatsApp number from env (same default as across the site)
-  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '201005683716';
 
   const services = [
     {
@@ -65,11 +63,11 @@ export function Services({ locale, dict }: ServicesProps) {
   ].map((service) => ({
     ...service,
     // Build a WhatsApp URL with a pre-filled message mentioning the service name
-    whatsappUrl: `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+    whatsappUrl: getWhatsAppUrl(
       isAr
         ? `مرحباً إسلام، أود طلب خدمة: ${service.title}`
         : `Hi Islam, I'd like to request a service: ${service.title}`
-    )}`,
+    ),
   }));
 
   return (

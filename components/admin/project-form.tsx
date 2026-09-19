@@ -91,8 +91,9 @@ export function ProjectForm({ initialData, isEdit = false }: ProjectFormProps) {
       }
 
       router.push('/admin/projects');
-    } catch (err: any) {
-      setError(err.message || 'An error occurred while saving the project.');
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'An error occurred while saving the project.';
+      setError(message);
       setIsSubmitting(false);
       window.scrollTo(0, 0);
     }

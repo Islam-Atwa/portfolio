@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { MessageCircle, Heart, Lock } from 'lucide-react';
 import type { Locale } from '@/lib/i18n';
+import { getWhatsAppUrl } from '@/lib/whatsapp';
 
 function InstagramIcon({ className }: { className?: string }) {
   return (
@@ -80,8 +81,6 @@ export function Footer({ locale, dict }: FooterProps) {
     { href: '#contact', label: dict.nav.contact },
   ];
 
-  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '201005683716';
-
   const socialLinks = [
     {
       name: 'LinkedIn',
@@ -95,12 +94,12 @@ export function Footer({ locale, dict }: FooterProps) {
     },
     {
       name: 'WhatsApp',
-      href: `https://wa.me/${whatsappNumber}`,
+      href: getWhatsAppUrl(),
       icon: MessageCircle,
     },
     {
       name: 'GitHub',
-      href: '*********',
+      href: 'https://github.com/Islam-Atwa',
       icon: GithubIcon,
     },
   ];

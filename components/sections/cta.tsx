@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { MessageCircle, ArrowUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import type { Locale } from '@/lib/i18n';
+import { getWhatsAppUrl } from '@/lib/whatsapp';
 
 interface CTAProps {
   locale: Locale;
@@ -18,14 +19,11 @@ interface CTAProps {
 
 export function CTA({ locale, dict }: CTAProps) {
   const isAr = locale === 'ar';
-  // Allow configuring WhatsApp number via environment variable or default
-  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '201005683716';
-  const whatsappMessage = encodeURIComponent(
+  const whatsappUrl = getWhatsAppUrl(
     isAr
       ? 'مرحباً إسلام، أود مناقشة مشروع جديد معك.'
       : "Hi Islam, I'd like to discuss a new project with you."
   );
-  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 
   return (
     <section id="contact" className="py-20 sm:py-28 relative overflow-hidden bg-background">

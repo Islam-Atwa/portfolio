@@ -12,8 +12,13 @@ export function AdminHeader() {
   const router = useRouter();
 
   const handleSignOut = async () => {
-    await signOutAdmin();
-    router.push('/admin/login');
+    try {
+      await signOutAdmin();
+    } catch (error) {
+      console.error('Sign out error:', error);
+    } finally {
+      router.push('/admin/login');
+    }
   };
 
   return (

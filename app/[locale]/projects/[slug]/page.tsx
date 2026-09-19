@@ -22,6 +22,7 @@ import { Navbar } from '@/components/navbar';
 import { Footer } from '@/components/sections/footer';
 import { WhatsAppButton } from '@/components/whatsapp-button';
 import { Button } from '@/components/ui/button';
+import { getWhatsAppUrl } from '@/lib/whatsapp';
 
 interface ProjectPageProps {
   params: Promise<{
@@ -115,13 +116,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const result = isAr ? project.result_ar : project.result_en;
 
   // Direct WhatsApp link with pre-filled message for this specific project
-  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '201005683716';
-  const whatsappMessage = encodeURIComponent(
+  const whatsappUrl = getWhatsAppUrl(
     isAr
       ? `مرحباً إسلام، لقد اطلعت على مشروع (${title}) وأود مناقشة تنفيذ حل تقني مشابه لعملي.`
       : `Hi Islam, I reviewed your project (${title}) and would like to discuss building a similar solution for my business.`
   );
-  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">

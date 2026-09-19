@@ -4,9 +4,9 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import type { Locale } from '@/lib/i18n';
+import { getWhatsAppUrl } from '@/lib/whatsapp';
 
 interface HeroProps {
-  locale: Locale;
   dict: {
     hero: {
       badge: string;
@@ -19,19 +19,18 @@ interface HeroProps {
       statusSubtitle?: string;
     };
   };
+  locale: Locale;
 }
 
 export function Hero({ locale, dict }: HeroProps) {
   const isAr = locale === 'ar';
 
   // Direct WhatsApp link for hero contact CTA
-  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '201005683716';
-  const whatsappMessage = encodeURIComponent(
+  const whatsappUrl = getWhatsAppUrl(
     isAr
       ? 'مرحباً إسلام، أود التواصل معك بخصوص مشروع جديد.'
       : "Hi Islam, I'd like to get in touch about a new project."
   );
-  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 
   return (
     <section className="relative overflow-hidden min-h-[calc(100vh-4rem)] flex flex-col justify-center py-16 sm:py-20 lg:py-24 border-b border-border/30 bg-background">

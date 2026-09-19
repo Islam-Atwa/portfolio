@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle } from 'lucide-react';
 import type { Locale } from '@/lib/i18n';
 
+import { getWhatsAppUrl } from '@/lib/whatsapp';
+
 interface WhatsAppButtonProps {
   locale: Locale;
   tooltipText: string;
@@ -14,13 +16,11 @@ export function WhatsAppButton({ locale, tooltipText }: WhatsAppButtonProps) {
   const [isHovered, setIsHovered] = useState(false);
   const isAr = locale === 'ar';
 
-  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '201005683716';
-  const whatsappMessage = encodeURIComponent(
+  const whatsappUrl = getWhatsAppUrl(
     isAr
       ? 'مرحباً إسلام، أود الاستفسار عن خدماتك وتطوير مشروع تقني.'
       : "Hi Islam, I'd like to inquire about your services and technical solutions."
   );
-  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 
   return (
     <div className="fixed bottom-6 right-6 rtl:right-auto rtl:left-6 z-40 flex items-center">
